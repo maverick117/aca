@@ -111,61 +111,220 @@
 
 \subsection{Memory Access Speed as Bottleneck of Performance}
 
-\begin{frame}{First Slide Title}{Optional Subtitle}
+\begin{frame}{CPU and Memory speed mismatch}
   \begin{itemize}
   \item {
-    My first point.
+  	\begin{Example}
+    Motorola MC68000
+    10 MHz CPU clock; 5 MB/s Memory access rate, half its pins tasked with memory connection.
+    \pause
+    \end{Example}
   }
   \item {
-    My second point.
+    10x transistors = 30x memory bandwidth. Not feasible to increase pin number 30 fold.
   }
   \end{itemize}
 \end{frame}
 
-\subsection{Second Subsection}
+\subsection{On-chip Memory Unlikely With High Performance CPUs}
 
 % You can reveal the parts of a slide one at a time
 % with the \pause command:
-\begin{frame}{Second Slide Title}
+\begin{frame}{Debates about On-chip Memory}
   \begin{itemize}
   \item {
-    First item.
+    Dedicated on-chip memory with a relatively slower CPU may outperform a more powerful CPU with conventional memory.
     \pause % The slide will pause after showing the first item
   }
   \item {   
-    Second item.
+    The chip should contain as much memory as the CPU needs.
   }
   % You can also specify when the content should appear
   % by using <n->:
   \item<3-> {
-    Third item.
+    Microprocessors in 1983 need 0.25 MiB of memory, more than possible amount.
   }
   \item<4-> {
-    Fourth item.
+    Higher performance CPUs apparently require more memory.
   }
   % or you can use the \uncover command to reveal general
   % content (not just \items):
   \item<5-> {
-    Fifth item. \uncover<6->{Extra text in the fifth item.}
+    Which leads to: \uncover<6->{On-chip memory is clearly not feasible in 1983, nor is it today.}
   }
   \end{itemize}
 \end{frame}
 
-\section{Second Main Section}
-
-\subsection{Another Subsection}
-
-\begin{frame}{Blocks}
-\begin{block}{Block Title}
-You can also highlight sections of your presentation in a block, with it's own title
-\end{block}
-\begin{theorem}
-There are separate environments for theorems, examples, definitions and proofs.
-\end{theorem}
-\begin{example}
-Here is an example of an example block.
-\end{example}
+\subsection{Current Problems in using Cache Memory}
+\begin{frame}{Issues With Using Cache Memory}
+	\begin{itemize}
+		\item {
+			Use of cache has aggravated bandwidth problem.
+			\pause
+		}
+		\item{
+			Cache optimization aspects:
+			\begin{itemize}
+				\item {
+					Maximizing Hit Ratio
+				}
+				\item{
+					Minimizing Data Accessing Time
+				}
+				\item{
+					Minimizing Miss Penalty
+				}
+				\item{
+					Minimizing Overhead of Updating Memory, Maintaining Multi-cache Consistency
+				}
+			\end{itemize}
+		
+		}
+	\end{itemize}
+	
 \end{frame}
+
+\begin{frame}{Issues with Using Cache Memory Cont.}
+	\begin{itemize}
+		\item {
+			Optimization Usually Results in Larger Burst Bandwidth Requirement.
+		}
+		\item{
+			\begin{Example}
+			IBM System/370 model 155 \\ Cache-Memory transfer rate: 100 MB/s \\ Cache-CPU transfer rate is less than 1/3 of that.
+			\pause
+			\end{Example}
+		}
+		\item{
+			Reason: To exploit spatial locality, thus data fetched in large blocks, resulting in high memory bandwidth bursts.
+		}
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Issues with Using Cache Memory Cont. 2}
+	
+	\begin{itemize}
+		\item {
+			To lower the bandwidth from backing store to cache:
+			\begin{itemize}
+				\item {
+					Transfer small blocks from backing store to cache, 
+				}
+				\item{
+					Experience long delays while a block is brought from backing store to cache.
+				}
+			\end{itemize} 
+			\pause
+		}
+		\item{
+			Explore the effectiveness of exploiting temporal locality, i.e. blocks fetched from backing store are only the size needed by CPU.
+		}
+		\item{
+			Effective environment: single-board computer running Multibus or Versabus.
+		}
+	\end{itemize}
+	
+\end{frame}
+
+
+\section{Single Board Computer Application}
+
+\begin{frame}{Single Board Computer Application}
+	\begin{itemize}
+		\item {
+			Buses, if needed, is designed for generality and simplicity not for high performance.
+		}
+		\item{
+			
+		}
+	\end{itemize}
+\end{frame}
+
+\subsection{Caches in Single Board Computer Applications}
+
+\begin{frame}{Caches in Single Board Computers}
+	\begin{itemize}
+		\item {
+			
+		}
+	\end{itemize}
+\end{frame}
+
+\subsection{Context Switches}
+
+\begin{frame}{Switching Contexts}
+	\begin{itemize}
+		\item {
+			}
+	\end{itemize}
+\end{frame}
+
+\section{Cache Coherency}
+
+\subsection{Write Policy}
+\begin{frame}{Write-Through or Write-Back}
+	\begin{itemize}
+		\item {
+			
+		}
+	\end{itemize}
+\end{frame}
+
+\subsection{New Writing Strategy}
+
+\begin{frame}{New Strategy: Write-Once}
+	\begin{itemize}
+		\item {
+			}
+	\end{itemize}
+\end{frame}
+
+\section{Simulation}
+\subsection{Effect of Write Strategy on Bus Traffic}
+\begin{frame}{Effect of Write Strategy on Bus Traffic}
+	\begin{itemize}
+		\item {
+			}
+	\end{itemize}
+\end{frame}
+
+\subsection{Cold Start vs. Warm Start}
+\begin{frame}{Cold Start vs. Warm Start}
+	
+\end{frame}
+
+\subsection{Cache Size}
+\begin{frame}{Cache Size}
+	
+\end{frame}
+
+\subsection{Block Size}
+\begin{frame}{Block Size}
+	
+\end{frame}
+
+\begin{frame}{Lowering Overhead of Small Blocks}
+	
+\end{frame}
+
+\begin{frame}{Effect of Large Address Blocks}
+	
+\end{frame}
+
+
+
+%\begin{frame}{Blocks}
+%\begin{block}{Block Title}
+%You can also highlight sections of your presentation in a block, with it's own title
+%\end{block}
+%\begin{theorem}
+%There are separate environments for theorems, examples, definitions and proofs.
+%\end{theorem}
+%\begin{example}
+%Here is an example of an example block.
+%\end{example}
+%\end{frame}
 
 % Placing a * after \section means it will not show in the
 % outline or table of contents.
