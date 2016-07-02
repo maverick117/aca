@@ -232,11 +232,25 @@
 
 \begin{frame}{Single Board Computer Application}
 	\begin{itemize}
+		\begin{block}{Usage of Buses}
 		\item {
-			Buses, if needed, is designed for generality and simplicity not for high performance.
+			Buses, if needed, are designed for generality and simplicity not for high performance.
+			\pause
+		}
+		\end{block}
+		\item{
+			\begin{Example}
+			Multibus by Intel Corporation \pause
+			\end{Example}
 		}
 		\item{
-			
+			Applications are severely limited by bandwidth of Multibus.
+		}
+		\item{
+			Try to determine whether a cache memory system can be implemented with Multibus
+		}
+		\item{
+			Allocation of memory should be handled by the system instead by the programmer
 		}
 	\end{itemize}
 \end{frame}
@@ -244,9 +258,41 @@
 \subsection{Caches in Single Board Computer Applications}
 
 \begin{frame}{Caches in Single Board Computers}
+	\begin{block}{Proposal}
+		Single-Board Computer	
+		\begin{itemize}
+			\item{
+				CPU w/o local memory except for cache
+			}
+			\item{
+				Backing store provided by Multibus
+			}
+		\end{itemize}
+		\pause
+	\end{block}
+	\begin{block}{Question}
+		\begin{itemize}
+			\item {
+				Can we build a cache that works with Multibus and supports multiple processors?
+			}
+			\item{
+				How many processors can we support?	
+			}
+		\end{itemize}
+	\end{block}
+	
+\end{frame}
+
+\begin{frame}{Caches in Single Board Computers Cont.}
 	\begin{itemize}
 		\item {
-			
+			Important criterion is maximize use of the bus.
+		}
+		\item{
+			Optimize system performance by optimizing bus utilization, achieving higher performance by minimizing individual processors' bus requirements.
+		}
+		\item{
+			Prefer individual processors to remain idle periodically over saturating bus traffic with data that will never be used.
 		}
 	\end{itemize}
 \end{frame}
@@ -254,9 +300,20 @@
 \subsection{Context Switches}
 
 \begin{frame}{Switching Contexts}
+	\begin{block}{Context Switch}
+		Task switch results in cache being reloaded and CPU speeds reduced to bus speed.
+	\end{block}
 	\begin{itemize}
 		\item {
-			}
+			Effects may be minimized if task switching frequency is reduced.
+		}
+		\item{
+			Utilize multiple processors for multiple tasks.
+		}
+		\item{
+			Interrupt handling optimized so program only uses small portion of cache.
+		}
+		
 	\end{itemize}
 \end{frame}
 
@@ -264,6 +321,10 @@
 
 \subsection{Write Policy}
 \begin{frame}{Write-Through or Write-Back}
+	\begin{block}{Write-Through vs. Write-Back}
+		
+	\end{block}
+	
 	\begin{itemize}
 		\item {
 			
