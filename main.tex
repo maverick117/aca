@@ -349,7 +349,7 @@
 		\item{Valid: There's data in the block which has been read from backing-store and has not been modified.
 		}
 		\item{Reserved: The data in the block has been locally modified exactly once since it was brought into the cache and the change has been transmitted to backing store.}
-		\item{Dirty: The data in the vlock has been locally modified more than once since it was brought into the cache and the latest change has not been transmitted to backing store.
+		\item{Dirty: The data in the block has been locally modified more than once since it was brought into the cache and the latest change has not been transmitted to backing store.
 		}
 	\end{itemize}
 	%\pause
@@ -369,7 +369,7 @@
 \subsection{Effect of Write Strategy on Bus Traffic 1}
 \begin{frame}{Effect of Write Strategy on Bus Traffic}
 	\begin{block}{Take write-back and write-through into consider}
-		A write-back cache use write allocate and a write-throught cache use no-write allocate.
+		A write-back cache use write allocate and a write-through cache use no-write allocate.
 	\end{block}
 	\begin{itemize}
 		\item{Normally write-through generates less bus traffic than write-back.}
@@ -381,7 +381,7 @@
 \subsection{Effect of Write Strategy on Bus Traffic 2}
 \begin{frame}{Effect of Write Strategy on Bus Traffic}
 	\begin{block}{How about Write-Once}
-		Write-once result  in bus traffic roughly equial to better of the two even though the initial goal is to get coherence.
+		Write-once result  in bus traffic roughly equal to better of the two even though the initial goal is to get coherence.
 	\end{block}
 	\begin{itemize}
 		\item{For example, For a 4-way set associative, 2048-byte cache with a block size of 32 bytes, the average bus traffic for three PDP-11 programs for which traced was 30.768\% for write-through, 17.55\% for write-back, and 17.78\% for write-once.}
@@ -393,7 +393,7 @@
 	\begin{itemize}
 		\item	{Cold start takes time to deal with cache miss at the beginning because of empty cache.}
 		\item  {The initial miss is amortized over all accesses. }
-		\item {The longer the trace analyzed, the lower the miss ratio obtained. also for infrequenct task switch the cold start will work more efficiently. }
+		\item {The longer the trace analyzed, the lower the miss ratio obtained. also for infrequent task switch the cold start will work more efficiently. }
 		\item {Actually, since cold start is easier to generate, we generally use cold start.}
 	\end{itemize}
 \end{frame}
@@ -404,17 +404,17 @@
 	\end{block}
 	\begin{itemize}
 		\item {Generally, larger cache size larger, less capacity miss and conflict miss, so smaller miss ratio, and decrease the traffic bus. }
-		\item {The hit time is longer because of larger cache size. As hit time is small, it doesn't count.}	
+		\item {The hit time is longer because of larger cache size. As hit time is small, it does not count.}	
 	\end{itemize}
 \end{frame}
 
 \subsection{Block Size}
 \begin{frame}{Block Size}
 	\begin{block}{Block size with locality}
-		Hit in the cache on colde start depend heavily on spatial locality, while temporal locality provides many hits when it is warm.
+		Hit in the cache on cold start depend heavily on spatial locality, while temporal locality provides many hits when it is warm.
 	\end{block}
 	\begin{itemize}
-		\item {increasing block size will heavilly affects the spatial locality, and miss ratio decline up to a point, traffic bus increase for either warm or cold starts.}
+		\item {increasing block size will heavily affects the spatial locality, and miss ratio decline up to a point, traffic bus increase for either warm or cold starts.}
 	\end{itemize}
 \end{frame}
 
@@ -439,7 +439,7 @@
 	\end{itemize}
 	\begin{block}{Conclude after simulation}
 	\begin{itemize}
-		\item {Minimum bus traffic is generated with minumum transfer block size.}
+		\item {Minimum bus traffic is generated with minimum transfer block size.}
 		\item {Miss ratio is substantially improved by using slightly larger transfer blocks.}
 		\item {Large address block reduce the cost of the tag memory considerably(less conflict miss).}
 	\end{itemize}
@@ -467,11 +467,11 @@
 \begin{frame}{Summary}
   \begin{itemize}
   \item
-    The \alert{first main message} of your talk in one or two lines.
+    A Single Board Computer can perform well with a \alert{4 KB} cache reducing the memory access by at least 90%.
   \item
-    The \alert{second main message} of your talk in one or two lines.
+    The \alert{Write-Once Algorithm} maintains consistency across multiple processors, and performs better than either Write-Back or Write-Through.
   \item
-    Perhaps a \alert{third message}, but not more than that.
+    The usage of \alert{small transfer block sizes} and \alert{large address blocks} are efficient in process switches.
   \end{itemize}
   
   \begin{itemize}
@@ -479,9 +479,11 @@
     Outlook
     \begin{itemize}
     \item
-      Something you haven't solved.
+      This is only appropriate for a system containing a single logical memory.
     \item
-      Something else you haven't solved.
+      Model only appropriate for many environments.
+    \item
+	  The cache approach is reasonable for a system where bandwidth is severely limited.
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -489,34 +491,6 @@
 
 
 % All of the following is optional and typically not needed. 
-\appendix
-\section<presentation>*{\appendixname}
-\subsection<presentation>*{For Further Reading}
-
-\begin{frame}[allowframebreaks]
-  \frametitle<presentation>{For Further Reading}
-    
-  \begin{thebibliography}{10}
-    
-  \beamertemplatebookbibitems
-  % Start with overview books.
-
-  \bibitem{Author1990}
-    A.~Author.
-    \newblock {\em Handbook of Everything}.
-    \newblock Some Press, 1990.
- 
-    
-  \beamertemplatearticlebibitems
-  % Followed by interesting articles. Keep the list short. 
-
-  \bibitem{Someone2000}
-    S.~Someone.
-    \newblock On this and that.
-    \newblock {\em Journal of This and That}, 2(1):50--100,
-    2000.
-  \end{thebibliography}
-\end{frame}
 
 \end{document}
 
