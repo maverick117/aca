@@ -322,12 +322,18 @@
 \subsection{Write Policy}
 \begin{frame}{Write-Through or Write-Back}
 	\begin{block}{Write-Through vs. Write-Back}
-		
+		Both Write-Through Write-Back have Pros and Cons.
 	\end{block}
-	
+		
 	\begin{itemize}
 		\item {
-			
+			When hit rate is 100\%, write-back results in no bus traffic. }
+		\item {When hit rate is 0, write-through to relocated the data from mem to cache, larger bus traffic than write-through.}
+		\item{
+			For typical R2W and hit ratios and task switching(similar to getting a miss) is infrequent, write-back generate less traffic than write-through.
+		}
+		\item{
+			However, Write-back has more coherency problems than write-through because the main-memory is not always in time. 
 		}
 	\end{itemize}
 \end{frame}
@@ -335,42 +341,109 @@
 \subsection{New Writing Strategy}
 
 \begin{frame}{New Strategy: Write-Once}
+	\begin{block}{Trade-off between write-back and write-through}
+		Here we use two additional bits to label 4 stage.
 	\begin{itemize}
-		\item {
+		\item {Invalid:  There is No data in the block.
 			}
+		\item{Valid: There's data in the block which has been read from backing-store and has not been modified.
+		}
+		\item{Reserved: The data in the block has been locally modified exactly once since it was brought into the cache and the change has been transmitted to backing store.}
+		\item{Dirty: The data in the vlock has been locally modified more than once since it was brought into the cache and the latest change has not been transmitted to backing store.
+		}
 	\end{itemize}
+	%\pause
+	\end{block}
+	%\begin{block}
+	%	\begin{figure}                      % insert figure
+	%	     \centering                           %  center aligned
+	%	     \includegraphics[width=0.6\textwidth ]{./writeOnceFSM.png}
+	%	     \caption{ FSM }             % set the caption of the figure
+%		      \label{fig:pic1}                   % set the label
+	%	  \end{figure}
+		  %yse, it is to solve coherence problem.
+	%\end{block}
 \end{frame}
 
 \section{Simulation}
-\subsection{Effect of Write Strategy on Bus Traffic}
+\subsection{Effect of Write Strategy on Bus Traffic 1}
 \begin{frame}{Effect of Write Strategy on Bus Traffic}
+	\begin{block}{Take write-back and write-through into consider}
+		A write-back cache use write allocate and a write-throught cache use no-write allocate.
+	\end{block}
 	\begin{itemize}
-		\item {
-			}
+		\item{Normally write-through generates less bus traffic than write-back.}
+		\item{write-through don't take time to load data to cache from back-storing when get a wirte miss, but write-back will.}
+		\item{write-back don't take time to load data to back-storing from cache when write-hit, but write-through will.}
+		\item{As hit ratio is low and the block size is large, the write-back will do a worse work.}
+	\end{itemize}
+\end{frame}
+\subsection{Effect of Write Strategy on Bus Traffic 2}
+\begin{frame}{Effect of Write Strategy on Bus Traffic}
+	\begin{block}{How about Write-Once}
+		Write-once result  in bus traffic roughly equial to better of the two even though the initial goal is to get coherence.
+	\end{block}
+	\begin{itemize}
+		\item{For example, For a 4-way set associative, 2048-byte cache with a block size of 32 bytes, the average bus traffic for three PDP-11 programs for which traced was 30.768\% for write-through, 17.55\% for write-back, and 17.78\% for write-once.}
 	\end{itemize}
 \end{frame}
 
 \subsection{Cold Start vs. Warm Start}
 \begin{frame}{Cold Start vs. Warm Start}
-	
+	\begin{itemize}
+		\item	{Cold start takes time to deal with cache miss at the beginning because of empty cache.}
+		\item  {The initial miss is amortized over all accesses. }
+		\item {The longer the trace analyzed, the lower the miss ratio obtained. also for infrequenct task switch the cold start will work more efficiently. }
+		\item {Actually, since cold start is easier to generate, we generally use cold start.}
+	\end{itemize}
 \end{frame}
 
 \subsection{Cache Size}
 \begin{frame}{Cache Size}
-	
+	\begin{block}{How does Cache size affects miss ratio and traffic bus?}
+	\end{block}
+	\begin{itemize}
+		\item {Generally, larger cache size larger, less capacity miss and conflict miss, so smaller miss ratio, and decrease the traffic bus. }
+		\item {The hit time is longer because of larger cache size. As hit time is small, it doesn't count.}	
+	\end{itemize}
 \end{frame}
 
 \subsection{Block Size}
 \begin{frame}{Block Size}
-	
+	\begin{block}{Block size with locality}
+		Hit in the cache on colde start depend heavily on spatial locality, while temporal locality provides many hits when it is warm.
+	\end{block}
+	\begin{itemize}
+		\item {increasing block size will heavilly affects the spatial locality, and miss ratio decline up to a point, traffic bus increase for either warm or cold starts.}
+	\end{itemize}
 \end{frame}
 
-\begin{frame}{Lowering Overhead of Small Blocks}
-	
+\begin{frame}{Lowering The Overhead of Small Blocks}
+	\begin{block}{Severe Overhead of small blocks}
+		Small blocks are costly in that they greatly increase the overhead of the cache.
+	\end{block}
+	\begin{block}{Split cache into two parts:}
+	\end{block}
+	\begin{itemize}
+		\item {Transfer block: data transferred.}
+		\item {Address block: info about the data.(tag,valid bit,dirty bit)}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Effect of Large Address Blocks}
-	
+	\begin{block}{Waste of traffic}
+	There are case: the transfer blocks is empty, the other transfer blocks in the same address block must be purged so that the new address must be allocated.
+	\end{block}
+	\begin{itemize}
+		\item {As address block enlarge, the traffic bus decreased and the miss rate declined(less conflict miss).}
+	\end{itemize}
+	\begin{block}{Conclude after simulation}
+	\begin{itemize}
+		\item {Minimum bus traffic is generated with minumum transfer block size.}
+		\item {Miss ratio is substantially improved by using slightly larger transfer blocks.}
+		\item {Large address block reduce the cost of the tag memory considerably(less conflict miss).}
+	\end{itemize}
+	\end{block}
 \end{frame}
 
 
